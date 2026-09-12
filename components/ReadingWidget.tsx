@@ -83,31 +83,32 @@ export default function ReadingWidget({ spreadId, suggestedQuestions, defaultQue
         {step === 'question' && (
           <motion.div
             key="question"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="space-y-6"
+            exit={{ opacity: 0, y: -30 }}
+            transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+            className="space-y-8"
           >
             <div className="card max-w-2xl mx-auto">
-              <h2 className="text-2xl font-serif font-bold text-gold mb-4">
-                What's on your mind?
+              <h2 className="text-3xl font-serif font-light text-stone mb-6 tracking-tight">
+                What question brings you here?
               </h2>
               <textarea
                 value={question}
                 onChange={(e) => setQuestion(e.target.value)}
-                placeholder="Enter your question or what you'd like guidance on..."
-                className="w-full bg-ink border border-gold/30 rounded-lg p-4 text-gray-100 placeholder-gray-500 focus:outline-none focus:border-gold min-h-[120px]"
+                placeholder="Take a moment to consider your question..."
+                className="w-full bg-midnight-100 border border-stone-100/20 rounded-sm p-6 text-stone-50 placeholder-stone-100/50 focus:outline-none focus:border-terracotta/50 transition-colors min-h-[140px] resize-none"
               />
               
               {suggestedQuestions && suggestedQuestions.length > 0 && (
-                <div className="mt-4">
-                  <p className="text-sm text-gray-400 mb-2">Or try one of these:</p>
-                  <div className="flex flex-wrap gap-2">
+                <div className="mt-6">
+                  <p className="text-sm text-stone-100 mb-3 font-medium uppercase tracking-wider">Suggested</p>
+                  <div className="flex flex-wrap gap-3">
                     {suggestedQuestions.map((q, i) => (
                       <button
                         key={i}
                         onClick={() => setQuestion(q)}
-                        className="text-sm px-3 py-1 bg-ink-lighter border border-gold/20 rounded-full hover:border-gold/50 transition-colors text-gray-300"
+                        className="text-sm px-4 py-2 bg-midnight-100 border border-stone-100/20 rounded-sm hover:border-terracotta/50 transition-all text-stone-100 hover:text-stone"
                       >
                         {q}
                       </button>
@@ -119,9 +120,9 @@ export default function ReadingWidget({ spreadId, suggestedQuestions, defaultQue
               <button
                 onClick={handleStartReading}
                 disabled={!question.trim()}
-                className="btn-primary w-full mt-6 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="btn-primary w-full mt-8 disabled:opacity-40 disabled:cursor-not-allowed"
               >
-                Begin Reading
+                Continue
               </button>
             </div>
           </motion.div>
@@ -130,35 +131,41 @@ export default function ReadingWidget({ spreadId, suggestedQuestions, defaultQue
         {step === 'options' && (
           <motion.div
             key="options"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="space-y-6"
+            exit={{ opacity: 0, y: -30 }}
+            transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+            className="space-y-8"
           >
             <div className="card max-w-2xl mx-auto">
-              <h2 className="text-2xl font-serif font-bold text-gold mb-4">
-                Reading Options
+              <h2 className="text-3xl font-serif font-light text-stone mb-6 tracking-tight">
+                Reading Preferences
               </h2>
               
-              <div className="mb-6">
-                <label className="flex items-center space-x-3 cursor-pointer">
+              <div className="mb-8">
+                <label className="flex items-start space-x-4 cursor-pointer group">
                   <input
                     type="checkbox"
                     checked={allowReversals}
                     onChange={(e) => setAllowReversals(e.target.checked)}
-                    className="w-5 h-5 rounded border-gold/30 bg-ink text-gold focus:ring-gold"
+                    className="mt-1 w-5 h-5 rounded-sm border-stone-100/30 bg-midnight-100 text-terracotta focus:ring-terracotta focus:ring-offset-0 transition-colors"
                   />
-                  <span className="text-gray-300">
-                    Allow reversed cards (adds depth and nuance)
-                  </span>
+                  <div>
+                    <span className="text-stone group-hover:text-stone-50 transition-colors block mb-1">
+                      Include reversed cards
+                    </span>
+                    <span className="text-sm text-stone-100">
+                      Adds nuance and complexity to your reading
+                    </span>
+                  </div>
                 </label>
               </div>
 
-              <div className="bg-ink-lighter border border-gold/20 rounded-lg p-4 mb-6">
-                <p className="text-sm text-gray-300 mb-2">
-                  <strong className="text-gold">Your question:</strong>
+              <div className="bg-midnight-100 border border-stone-100/20 rounded-sm p-6 mb-8">
+                <p className="text-sm text-stone-100 mb-2 uppercase tracking-wider font-medium">
+                  Your Question
                 </p>
-                <p className="text-gray-100">{question}</p>
+                <p className="text-stone leading-relaxed">{question}</p>
               </div>
 
               <button onClick={handleBeginShuffle} className="btn-primary w-full">
@@ -174,14 +181,27 @@ export default function ReadingWidget({ spreadId, suggestedQuestions, defaultQue
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="text-center py-16"
+            className="text-center py-24"
           >
-            <div className="text-6xl mb-6 animate-pulse">🔮</div>
-            <h2 className="text-3xl font-serif font-bold text-gold mb-4">
-              Shuffling the cards...
+            <motion.div 
+              className="text-7xl mb-8 text-stone-100"
+              animate={{ 
+                scale: [1, 1.1, 1],
+                opacity: [0.5, 0.8, 0.5] 
+              }}
+              transition={{ 
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
+              ◇
+            </motion.div>
+            <h2 className="text-3xl md:text-4xl font-serif font-light text-stone mb-4">
+              Shuffling
             </h2>
-            <p className="text-gray-400">
-              Focus on your question while the cards are shuffled
+            <p className="text-stone-100 max-w-md mx-auto leading-relaxed">
+              Hold your question in mind as the cards are prepared
             </p>
           </motion.div>
         )}
@@ -189,16 +209,17 @@ export default function ReadingWidget({ spreadId, suggestedQuestions, defaultQue
         {step === 'draw' && (
           <motion.div
             key="draw"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="text-center"
+            exit={{ opacity: 0, y: -30 }}
+            transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+            className="text-center py-16"
           >
-            <h2 className="text-3xl font-serif font-bold text-gold mb-8">
+            <h2 className="text-3xl md:text-4xl font-serif font-light text-stone mb-8">
               The cards are ready
             </h2>
-            <button onClick={handleDrawCards} className="btn-primary text-lg">
-              Draw Your Cards
+            <button onClick={handleDrawCards} className="btn-primary text-lg px-12 py-5">
+              Reveal Your Reading
             </button>
           </motion.div>
         )}
@@ -208,18 +229,25 @@ export default function ReadingWidget({ spreadId, suggestedQuestions, defaultQue
             key="reveal"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="space-y-8"
+            transition={{ duration: 0.6 }}
+            className="space-y-12"
           >
             {/* Cards Display */}
-            <div className="grid gap-6" style={{
+            <div className="grid gap-8" style={{
               gridTemplateColumns: `repeat(${Math.min(spread.cardCount, 5)}, 1fr)`,
             }}>
               {reading.cards.map((readingCard, index) => {
                 const isFlipped = flippedCards.has(index);
                 return (
-                  <div key={index} className="space-y-2">
+                  <motion.div 
+                    key={index} 
+                    className="space-y-4"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1, duration: 0.5 }}
+                  >
                     <div 
-                      className="aspect-[2/3.5] cursor-pointer"
+                      className="reading-card cursor-pointer"
                       onClick={() => !isFlipped && handleFlipCard(index)}
                     >
                       <TarotCard
@@ -229,42 +257,44 @@ export default function ReadingWidget({ spreadId, suggestedQuestions, defaultQue
                         animateFlip={true}
                       />
                     </div>
-                    <p className="text-center text-sm font-semibold text-gold">
+                    <p className="text-center text-sm font-medium text-stone uppercase tracking-wider">
                       {readingCard.position.name}
                     </p>
-                  </div>
+                  </motion.div>
                 );
               })}
             </div>
 
             {flippedCards.size < reading.cards.length && (
-              <div className="text-center">
+              <div className="text-center py-8">
+                <p className="text-stone-100 mb-6">Tap cards to reveal, or</p>
                 <button onClick={handleFlipAll} className="btn-secondary">
-                  Reveal All Cards
+                  Reveal All
                 </button>
               </div>
             )}
 
             {flippedCards.size === reading.cards.length && (
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="space-y-6"
+                transition={{ delay: 0.3, duration: 0.6 }}
+                className="space-y-10"
               >
                 {/* Synthesis */}
-                <div className="card">
-                  <h3 className="text-2xl font-serif font-bold text-gold mb-4">
-                    Reading Overview
+                <div className="card max-w-4xl mx-auto">
+                  <h3 className="text-2xl md:text-3xl font-serif font-light text-stone mb-6 tracking-tight">
+                    Your Reading
                   </h3>
-                  <p className="text-gray-200 leading-relaxed">
+                  <p className="text-stone-100 leading-relaxed text-lg">
                     {reading.synthesis}
                   </p>
                 </div>
 
                 {/* Individual Card Meanings */}
-                <div className="space-y-4">
-                  <h3 className="text-2xl font-serif font-bold text-gold">
-                    Card by Card
+                <div className="space-y-6 max-w-4xl mx-auto">
+                  <h3 className="text-2xl font-serif font-light text-stone mb-6 tracking-tight">
+                    The Cards in Detail
                   </h3>
                   {reading.cards.map((readingCard, index) => {
                     const category = determineQuestionCategory(question);
@@ -275,27 +305,40 @@ export default function ReadingWidget({ spreadId, suggestedQuestions, defaultQue
                     
                     return (
                       <div key={index} className="card">
-                        <div className="flex items-start gap-4">
-                          <div className="w-16 h-24 flex-shrink-0">
+                        <div className="flex flex-col md:flex-row items-start gap-6">
+                          <div className="w-full md:w-24 h-36 flex-shrink-0">
                             <TarotCard
                               card={readingCard.card}
                               reversed={readingCard.reversed}
                               faceUp={true}
                             />
                           </div>
-                          <div className="flex-1">
-                            <h4 className="text-xl font-bold text-gold mb-1">
-                              {readingCard.card.name} {readingCard.reversed && '(Reversed)'}
-                            </h4>
-                            <p className="text-sm text-gray-400 mb-2">
-                              {readingCard.position.name} • {readingCard.position.description}
+                          <div className="flex-1 space-y-4">
+                            <div>
+                              <h4 className="text-xl font-serif font-light text-stone mb-1">
+                                {readingCard.card.name} {readingCard.reversed && '(Reversed)'}
+                              </h4>
+                              <p className="text-sm text-stone-100 uppercase tracking-wider">
+                                {readingCard.position.name}
+                              </p>
+                            </div>
+                            <p className="text-stone-100 text-sm leading-relaxed border-l-2 border-terracotta/30 pl-4">
+                              {readingCard.position.description}
                             </p>
-                            <p className="text-gray-300 mb-2">
-                              <strong>For your question:</strong> {meaning}
-                            </p>
-                            <p className="text-gray-400 text-sm">
-                              {generalMeaning}
-                            </p>
+                            <div className="space-y-3 pt-2">
+                              <div>
+                                <p className="text-sm font-medium text-terracotta mb-2 uppercase tracking-wider">For Your Question</p>
+                                <p className="text-stone-100 leading-relaxed">
+                                  {meaning}
+                                </p>
+                              </div>
+                              <div>
+                                <p className="text-sm font-medium text-stone-100 mb-2 uppercase tracking-wider opacity-60">Traditional Meaning</p>
+                                <p className="text-stone-100 leading-relaxed opacity-80 text-sm">
+                                  {generalMeaning}
+                                </p>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -304,26 +347,25 @@ export default function ReadingWidget({ spreadId, suggestedQuestions, defaultQue
                 </div>
 
                 {/* Actions */}
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
                   <button onClick={handleNewReading} className="btn-primary">
                     New Reading
                   </button>
                   <button 
                     onClick={() => {
                       trackEvent(AnalyticsEvents.READING_SAVE);
-                      alert('Reading saved to your browser!');
                     }}
                     className="btn-secondary"
                   >
-                    💾 Saved Automatically
+                    Saved to Browser
                   </button>
                 </div>
 
                 {/* Entertainment Disclaimer */}
-                <div className="text-center text-sm text-gray-500 mt-8">
+                <div className="text-center text-sm text-stone-100/50 mt-12 max-w-2xl mx-auto leading-relaxed">
                   <p>
-                    ✦ Tarot readings are for entertainment and self-reflection only. 
-                    They do not provide medical, legal, or financial advice.
+                    Tarot readings are offered for entertainment and self-reflection. 
+                    They do not constitute professional advice of any kind.
                   </p>
                 </div>
               </motion.div>
