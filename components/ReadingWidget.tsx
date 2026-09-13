@@ -31,7 +31,16 @@ export default function ReadingWidget({ spreadId, suggestedQuestions, defaultQue
   const handleStartReading = () => {
     if (!question.trim()) return;
     trackEvent(AnalyticsEvents.READING_START, { spread: spreadId, question });
-    setStep('options');
+    
+    // For single-card spreads, skip to shuffle immediately
+    if (spread && spread.cardCount === 1) {
+      setStep('shuffle');
+      setTimeout(() => {
+        setStep('draw');
+      }, 1500);
+    } else {
+      setStep('options');
+    }
   };
 
   const handleBeginShuffle = () => {
@@ -233,15 +242,13 @@ export default function ReadingWidget({ spreadId, suggestedQuestions, defaultQue
             className="space-y-12"
           >
             {/* Cards Display */}
-            <div className="grid gap-8" style={{
-              gridTemplateColumns: `repeat(${Math.min(spread.cardCount, 5)}, 1fr)`,
-            }}>
+            <div className="flex flex-wrap justify-center gap-8 max-w-4xl mx-auto">
               {reading.cards.map((readingCard, index) => {
                 const isFlipped = flippedCards.has(index);
                 return (
                   <motion.div 
                     key={index} 
-                    className="space-y-4"
+                    className="space-y-4 flex-shrink-0"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1, duration: 0.5 }}
@@ -292,10 +299,11 @@ export default function ReadingWidget({ spreadId, suggestedQuestions, defaultQue
                 </div>
 
                 {/* Individual Card Meanings */}
-                <div className="space-y-6 max-w-4xl mx-auto">
-                  <h3 className="text-2xl font-serif font-light text-stone mb-6 tracking-tight">
-                    The Cards in Detail
-                  </h3>
+                {reading.cards.length > 1 && (
+                  <div className="space-y-6 max-w-4xl mx-auto">
+                    <h3 className="text-2xl font-serif font-light text-stone mb-6 tracking-tight">
+                      The Cards in Detail
+                    </h3>
                   {reading.cards.map((readingCard, index) => {
                     const category = determineQuestionCategory(question);
                     const meaning = interpretCardInContext(readingCard, question, category);
@@ -345,6 +353,7 @@ export default function ReadingWidget({ spreadId, suggestedQuestions, defaultQue
                     );
                   })}
                 </div>
+                )}
 
                 {/* Actions */}
                 <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
@@ -355,9 +364,10 @@ export default function ReadingWidget({ spreadId, suggestedQuestions, defaultQue
                     onClick={() => {
                       trackEvent(AnalyticsEvents.READING_SAVE);
                     }}
-                    className="btn-secondary"
+                    className="btn-secondary opacity-60 cursor-default"
+                    disabled
                   >
-                    Saved to Browser
+                    Saved
                   </button>
                 </div>
 

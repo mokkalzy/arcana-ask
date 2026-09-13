@@ -1,11 +1,22 @@
 import type { Metadata } from 'next';
-import { Inter, Playfair_Display } from 'next/font/google';
+import { Cormorant_Garamond, Inter } from 'next/font/google';
 import './globals.css';
 import { DEFAULT_METADATA } from '@/lib/metadata';
 import Link from 'next/link';
+import MobileNav from '@/components/MobileNav';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
-const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' });
+const inter = Inter({ 
+  subsets: ['latin'], 
+  variable: '--font-inter',
+  display: 'swap',
+});
+
+const cormorant = Cormorant_Garamond({ 
+  subsets: ['latin'], 
+  variable: '--font-cormorant',
+  weight: ['300', '400', '500', '600'],
+  display: 'swap',
+});
 
 export const metadata: Metadata = DEFAULT_METADATA;
 
@@ -15,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="en" className={`${inter.variable} ${cormorant.variable}`}>
       <head>
         {process.env.NEXT_PUBLIC_GA_ID && (
           <>
@@ -56,9 +67,12 @@ export default function RootLayout({
                   Guides
                 </Link>
               </div>
-              <Link href="/free-tarot-reading" className="btn-primary text-sm py-3 px-6">
-                Begin Reading
-              </Link>
+              <div className="flex items-center gap-4">
+                <Link href="/free-tarot-reading" className="hidden md:inline-block btn-primary text-sm py-3 px-6">
+                  Begin Reading
+                </Link>
+                <MobileNav />
+              </div>
             </div>
           </div>
         </nav>

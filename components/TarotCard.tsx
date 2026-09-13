@@ -3,6 +3,7 @@
 import { TarotCard as TarotCardType } from '@/lib/tarot-data';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import { getMajorArcanaIllustration, GenericMajorIllustration } from './CardIllustrations';
 
 interface TarotCardProps {
   card?: TarotCardType;
@@ -193,9 +194,8 @@ function CardFront({ card, reversed }: { card: TarotCardType; reversed: boolean 
 
   return (
     <div
-      className={`w-full h-full bg-gradient-to-br from-stone-50 via-stone to-stone-100 rounded-sm border border-stone-200 shadow-2xl overflow-hidden ${
-        reversed ? 'rotate-180' : ''
-      }`}
+      className="w-full h-full bg-gradient-to-br from-stone-50 via-stone to-stone-100 rounded-sm border border-stone-200 shadow-2xl overflow-hidden"
+      style={{ transform: reversed ? 'rotate(180deg)' : 'none' }}
     >
       <svg
         viewBox="0 0 200 350"
@@ -255,9 +255,15 @@ function CardFront({ card, reversed }: { card: TarotCardType; reversed: boolean 
 
         {/* Main illustration area */}
         <g transform="translate(100, 175)">
+          {card.arcana === 'major' && card.number !== undefined && (
+            <>
+              {getMajorArcanaIllustration(card, theme) || (
+                <GenericMajorIllustration cardNumber={card.number} theme={theme} />
+              )}
+            </>
+          )}
           {card.suit && <ImprovedSuitSymbol suit={card.suit} theme={theme} />}
-          {card.arcana === 'major' && <MajorArcanaSymbol card={card} theme={theme} />}
-          {card.arcana === 'minor' && card.number !== undefined && (
+          {card.arcana === 'minor' && card.number !== undefined && !card.suit && (
             <MinorArcanaPattern number={card.number} theme={theme} />
           )}
         </g>

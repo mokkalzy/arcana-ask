@@ -88,7 +88,7 @@
   }
   
   .reading-card {
-    @apply aspect-[2/3.5] rounded-sm shadow-xl transition-all duration-300 hover:shadow-2xl;
+    @apply aspect-[2/3.5] rounded-sm shadow-xl transition-all duration-300 hover:shadow-2xl max-w-[180px] w-full mx-auto;
   }
 
   .backface-hidden {

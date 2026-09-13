@@ -14,21 +14,18 @@ export default function HomePage() {
       description: 'Clear guidance for decisive moments',
       href: '/yes-or-no-tarot',
       icon: '⚖',
-      popular: true,
     },
     {
       name: 'Daily Card',
       description: 'One card to guide your day',
       href: '/daily-tarot',
       icon: '☀',
-      popular: true,
     },
     {
       name: 'Love Reading',
       description: 'Insight into relationships and connection',
       href: '/love-tarot',
       icon: '♡',
-      popular: true,
     },
     {
       name: 'Three Cards',
@@ -61,12 +58,9 @@ export default function HomePage() {
           <p className="text-xl md:text-2xl text-stone-100 leading-relaxed max-w-2xl mx-auto font-light animate-slide-up">
             Thoughtful tarot readings for reflection and insight. Choose your spread and begin.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4 animate-slide-up animate-delay-200">
-            <Link href="/yes-or-no-tarot" className="btn-primary text-base">
-              Begin Reading
-            </Link>
-            <Link href="/random-tarot-card" className="btn-secondary text-base">
-              Draw One Card
+          <div className="animate-slide-up animate-delay-200 pt-4">
+            <Link href="/yes-or-no-tarot" className="btn-primary text-base inline-block">
+              Draw a Card
             </Link>
           </div>
         </div>
@@ -86,11 +80,6 @@ export default function HomePage() {
               style={{ animationDelay: `${index * 50}ms` }}
             >
               <div className="card-elevated hover:scale-[1.02] transition-all duration-300 h-full">
-                {spread.popular && (
-                  <span className="absolute -top-2 -right-2 bg-terracotta text-stone-50 text-xs font-medium px-3 py-1 rounded-sm shadow-md">
-                    Popular
-                  </span>
-                )}
                 <div className="text-5xl mb-6 text-stone-100 opacity-60 group-hover:opacity-100 transition-opacity duration-300">
                   {spread.icon}
                 </div>
@@ -116,21 +105,21 @@ export default function HomePage() {
               <div className="text-4xl text-stone-100 opacity-60 mb-4">∞</div>
               <h3 className="text-xl font-serif font-light text-stone">Always Free</h3>
               <p className="text-stone-100 leading-relaxed">
-                Unlimited readings with no hidden costs or signup required.
+                No limits, no accounts, no costs.
               </p>
             </div>
             <div className="text-center space-y-4">
               <div className="text-4xl text-stone-100 opacity-60 mb-4">◈</div>
-              <h3 className="text-xl font-serif font-light text-stone">Immediate Access</h3>
+              <h3 className="text-xl font-serif font-light text-stone">Immediate</h3>
               <p className="text-stone-100 leading-relaxed">
-                No account needed. Begin your reading right away.
+                Draw your first card right now.
               </p>
             </div>
             <div className="text-center space-y-4">
               <div className="text-4xl text-stone-100 opacity-60 mb-4">✦</div>
-              <h3 className="text-xl font-serif font-light text-stone">Thoughtfully Crafted</h3>
+              <h3 className="text-xl font-serif font-light text-stone">Considered</h3>
               <p className="text-stone-100 leading-relaxed">
-                Carefully designed experience on every device.
+                Designed with care for reflection.
               </p>
             </div>
           </div>
@@ -141,16 +130,13 @@ export default function HomePage() {
       <section className="container mx-auto px-6 lg:px-8 py-24 max-w-4xl">
         <div className="space-y-8 text-stone-100 leading-relaxed text-lg">
           <h2 className="text-3xl md:text-4xl font-serif font-light text-stone mb-8 tracking-tight">
-            About Tarot Reading
+            About Tarot
           </h2>
           <p>
-            Tarot offers a mirror for reflection, a framework for contemplating life's questions with intention and depth. Each of the 78 cards carries layers of symbolic meaning, from the Major Arcana's archetypal journeys to the Minor Arcana's everyday wisdom.
+            Tarot offers a contemplative framework—78 cards carrying archetypal patterns and symbolic wisdom accumulated over centuries. The Major Arcana traces profound life journeys. The Minor Arcana explores everyday questions of love, work, challenge, and growth.
           </p>
           <p>
-            Whether you're seeking clarity on a yes-or-no question, daily guidance, or deeper insight through a Celtic Cross spread, the cards provide perspective rather than prediction. They invite you to consider your situation from new angles and trust your own intuition.
-          </p>
-          <p className="text-base text-stone-100/70 pt-4">
-            Our readings combine traditional tarot meanings with thoughtful interpretation, designed for reflection and personal insight.
+            Each reading invites you to consider your situation from new angles. The cards don't predict the future; they create space for reflection and perspective.
           </p>
         </div>
       </section>
